@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-sapi-nodeport
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 8090
+      nodePort: 30007
+      protocol: TCP
+  selector:
+    app: account-sapi

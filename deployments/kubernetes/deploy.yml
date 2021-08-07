@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-sapi-deploy
+  labels:
+    app: account-sapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: account-sapi
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: account-sapi
+    spec:
+      terminationGracePeriodSeconds:
+      containers:
+        - name: account-sapi-pod
+          image: deanorogers/account-sapi:1.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090

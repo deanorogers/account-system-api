@@ -8,6 +8,16 @@ public class Account {
     public Account() {
     }
 
+    public String getCustomerNbr() {
+        return customerNbr;
+    }
+
+    public void setCustomerNbr(String customerNbr) {
+        this.customerNbr = customerNbr;
+    }
+
+    private String customerNbr;
+
     public int getAccountNbr() {
         return accountNbr;
     }
