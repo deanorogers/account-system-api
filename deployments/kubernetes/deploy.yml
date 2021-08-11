@@ -23,7 +23,7 @@ spec:
       terminationGracePeriodSeconds:
       containers:
         - name: account-sapi-pod
-          image: deanorogers/account-sapi:1.1
+          image: deanorogers/account-sapi:1.2
           imagePullPolicy: Always
           ports:
             - containerPort: 8090

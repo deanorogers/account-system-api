@@ -1,5 +1,7 @@
 package com.bank.sandbox.accounts.api;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
@@ -20,19 +22,27 @@ public class AccountService {
         return accounts;
     }
 
-    public List<Account> retrieveBulkAccountsForCustomer (String customerNbr) {
+    public List<Account> retrieveBulkAccountsForCustomer (String customerNbr) throws IOException {
 
         List<Account> accounts = new ArrayList<>();
 
         try {
 
-            File inputf = ResourceUtils.getFile("classpath:accounts.csv");
-            // File inputf = new File(getClass().getResource("accounts.csv").getFile());
-            InputStream inputFS = new FileInputStream(inputf);
+            // File inputf = ResourceUtils.getFile("classpath:accounts.csv");
+            // InputStream inputFS = new FileInputStream(inputf);
+
+            System.out.println("Using ClassPathResource");
+
+            Resource resource = new ClassPathResource("accounts.csv");
+            InputStream inputFS = resource.getInputStream();
+
             BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
 
             // skip the header of the csv file
-            accounts = br.lines().skip(1).map(mapToItem).collect(Collectors.toList());
+            accounts = br.lines()
+                    .skip(1)
+                    .map(mapToItem)
+                    .collect(Collectors.toList());
 
         } catch ( FileNotFoundException ex ) {
             throw new RuntimeException(ex.getMessage());
@@ -49,6 +59,7 @@ public class AccountService {
         item.setBalance(Long.valueOf(p[1]));
         item.setSortCode(p[2]);
         item.setName(p[3]);
+        item.setCustomerNbr(p[4]);
         return item;
     };
 

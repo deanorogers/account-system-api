@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AccountServiceTests {
@@ -21,13 +22,13 @@ public class AccountServiceTests {
     }
 
     @Test
-    public void retrieveBulkAccountsForCustomer () {
+    public void retrieveBulkAccountsForCustomer () throws IOException {
 
-        List<Account> fetchedAccounts = accountService.retrieveBulkAccountsForCustomer("100");
+        List<Account> fetchedAccounts = accountService.retrieveBulkAccountsForCustomer("1009");
         for ( Account account : fetchedAccounts ) {
             System.out.println("Account [" + account.getAccountNbr() + ", " + account.getName() + "]");
         }
-        assertEquals(100, fetchedAccounts.size(), "Incorrect number of accounts retrieved");
+        assertEquals(4, fetchedAccounts.size(), "Incorrect number of accounts retrieved");
     }
 
 }
