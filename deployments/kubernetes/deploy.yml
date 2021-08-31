@@ -20,10 +20,12 @@ spec:
       labels:
         app: account-sapi
     spec:
+      hostname: account-sapi
+      subdomain: default-subdomain
       terminationGracePeriodSeconds:
       containers:
         - name: account-sapi-pod
-          image: deanorogers/account-sapi:1.2
+          image: deanorogers/account-sapi:1.3
           imagePullPolicy: Always
           ports:
             - containerPort: 8090
